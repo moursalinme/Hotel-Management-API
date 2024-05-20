@@ -1,6 +1,16 @@
 {
-  "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^8.4.0"
-  }
+    "name": "hotel-management-system",
+    "description": "hotel-management-system-api",
+    "version": "1.0.0",
+    "main": "app.js",
+    "devDependencies": {},
+    "author": "Moursalin Emon",
+    "license": "MIT",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongoose": "^8.4.0"
+    }
 }
