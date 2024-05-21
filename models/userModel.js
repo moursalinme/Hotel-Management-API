@@ -1,12 +1,38 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const validator = require('validator');
 
-const userSchema = new Schema({
-  username: { type: String, required: true, unique: true },
-  email: {type: String, required: true, unique:true},
-  password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false },
+const userSchema = new mongoose.Schema({
+    username: { 
+        type: String, 
+        required: [true, 'Please enter your username!'],
+        maxlength: [50, 'Name must have maximum of 50 characters'],
+        minlength: [3, 'Name must have at least 3 characters'],
+        unique: [true, 'Username already exists'],
+        trim: true, 
+    },
+    email: {
+        type: String, 
+        required: [true, 'Please enter your email!'],
+        maxlength: [50, 'Email must have maximum of 50 characters'],
+        minlength: [3, 'Email must have at least 3 characters'],
+        validate: [validator.isEmail, 'Email might be invalid.'],
+        unique: [true, 'Email already exists'],
+        trim: true, 
+    },
+    phone: {
+        type: String,
+        unique: true,
+        validate: [validator.isNumeric, 'Phone number is not valid. Please check if you have entered chars insted of numbers.'],
+        select: false, 
+    },
+    password: { type: String, required: true, select: false },
+    role: { 
+        type: String, 
+        enum: ['admin', 'user'], 
+        default: 'user' 
+    },
+    dateCreated: { type: Date, default: Date.now },
 });
 
-// const User = mongoose.model('user', userSchema);
-// module.exports = User;
+const User = mongoose.model('user', userSchema);
+module.exports = User;

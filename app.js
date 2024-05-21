@@ -37,6 +37,11 @@ app.use(cookieParser());
 const swaggerDocs = swaggerjsdoc(swaggerOptions);
 app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocs));
 
+// Import and add the routes
+const UserRouter = require('./routes/userRoute');
+
+app.use('/api/users', UserRouter);
+
 
 app.all('*', (req, res, next) => {
     next(new AppError(`The provided URL Not Found! ${req.originalUrl}`, 404));
