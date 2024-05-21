@@ -9,6 +9,6 @@ const roomSchema = new mongoose.Schema({
     isAvailable: { type: Boolean, default: true }
 });
 
-const Room = mongoose.model('room', roomSchema);
+// const Room = mongoose.model('room', roomSchema);
 
-module.exports = Room;
+// module.exports = Room;

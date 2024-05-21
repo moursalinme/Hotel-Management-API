@@ -8,5 +8,5 @@ const userSchema = new Schema({
   isAdmin: { type: Boolean, default: false },
 });
 
-const User = mongoose.model('user', userSchema);
-module.exports = User;
+// const User = mongoose.model('user', userSchema);
+// module.exports = User;

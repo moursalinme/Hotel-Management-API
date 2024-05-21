@@ -8,5 +8,5 @@ const reservationSchema = new mongoose.Schema({
     status: { type: String, enum: ['Pending', 'Approved', 'Cancelled'], default: 'Pending' }
 });
 
-const Reservation = mongoose.model('reservation', reservationSchema);
-module.exports = Reservation;
+// const Reservation = mongoose.model('reservation', reservationSchema);
+// module.exports = Reservation;
