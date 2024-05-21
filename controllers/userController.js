@@ -25,7 +25,7 @@ const sendToken =  function (user, res) {
     console.log(options);
   
     res.cookie('jwt', token, options);
-    res.status(200).json({
+    res.status(201).json({
         status: 'success',
         token, 
         user, 
@@ -37,12 +37,13 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.register = catchAsync(async (req, res, next) => {
-    const userobj = {
+    const userObj = {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password, 
+        phone: req.body.phone,
     }
 
-    
+    const user = await User.create(userObj);
     sendToken(user, res);
 });

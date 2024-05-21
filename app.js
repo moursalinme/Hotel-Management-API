@@ -23,7 +23,7 @@ const swaggerOptions = {
         },
         schemes: ['http', 'https'],
     },
-    apis: ['/routes/*.js',]
+    apis: ['./swagger/*/*.js',]
 };
 
 

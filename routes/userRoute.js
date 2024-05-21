@@ -3,7 +3,8 @@ const router = express.Router();
 const {login, register, getAllUsers, getUserById, updateUser, deleteUser} = require('../controllers/userController');
 
 // router.post('/register', userController.register);
-router.get('/register', register);
+
+router.post('/register', register);
 // router.post('/login', userController.login);
 // router.get('/', userController.getAllUsers); // For admin to get all users
 // router.get('/:userId', userController.getUserById); // For admin to get a specific user
