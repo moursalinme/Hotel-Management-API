@@ -5,6 +5,23 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 const bcrypt = require('bcrypt');
 
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+     
+    const { userId } = req.params;
+    console.log("here", userId);
+    const del = await User.findByIdAndDelete(userId);
+
+    if (!del) {
+        return next(new AppError('User does not exists.!', 404));
+    }
+
+    res.status(200).json( {
+        status: "User Deleted.",
+    });
+
+});
+
 exports.getUserById = (async (req, res, next) => {
     const { userId } = req.params;
     const user = await User.findById(userId);
@@ -14,7 +31,7 @@ exports.getUserById = (async (req, res, next) => {
     res.status(200).json( {
         status: "success",
         user,
-    })
+    });
 });
 
 exports.getAllUsers = (async (req, res, next) => {

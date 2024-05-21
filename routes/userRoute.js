@@ -6,9 +6,10 @@ const {login, register, protect, restrictTo, getAllUsers, getUserById, updateUse
 
 router.post('/register', register);
 router.post('/login', login);
+
+// router.use(protect, restrictTo('admin'));
 router.get('/',  getAllUsers); 
 router.get('/:userId', getUserById);
-// router.put('/:userId', userController.updateUser); // For admin to update a user
-// router.delete('/:userId', userController.deleteUser); // For admin to delete a user
+router.delete('/:userId', deleteUser); 
 
 module.exports = router;
