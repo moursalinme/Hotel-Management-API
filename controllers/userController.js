@@ -2,11 +2,33 @@ const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
+const bcrypt = require('bcrypt');
+
+exports.getUserById = (async (req, res, next) => {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+        return next(new AppError('Invalid ID. No user found!', 404));
+    }
+    res.status(200).json( {
+        status: "success",
+        user,
+    })
+});
+
+exports.getAllUsers = (async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        status: "Success",
+        users,
+    });
+});
 
 
 const sendToken =  function (user, res) {
     const payload = {
-        id: user._id, 
+        _id: user._id, 
         username: user.username,
         role: user.role,
     };
@@ -22,7 +44,7 @@ const sendToken =  function (user, res) {
         httpOnly: true, 
     }
 
-    console.log(options);
+    // console.log(options);
   
     res.cookie('jwt', token, options);
     res.status(201).json({
@@ -33,7 +55,7 @@ const sendToken =  function (user, res) {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
-    const {username, password} = req.body;
+    const { username, password } = req.body;
     
     if (!username || !password) {
         return next (new AppError('username or Password not provided', 400));
@@ -58,3 +80,31 @@ exports.register = catchAsync(async (req, res, next) => {
     const user = await User.create(userObj);
     sendToken(user, res);
 });
+
+exports.protect = catchAsync(async (req, res, next) => {
+
+    if (!req.cookies.jwt) {
+        return next(new AppError('You need to be logged in to access this route.', 400));
+    }
+
+    const token = req.cookies.jwt;
+    const payload = await promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY);
+    // console.log('printing' , token, payload);
+
+    const user = await User.findById(payload._id);
+    if (!user) {
+        return next(new AppError('No user found', 404));
+    }
+
+    req.user = user;
+    next();
+});
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next (new AppError('unuthorized route', 403));
+        }
+        next();
+    }
+}
