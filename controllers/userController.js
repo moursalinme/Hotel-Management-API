@@ -33,7 +33,18 @@ const sendToken =  function (user, res) {
 };
 
 exports.login = catchAsync(async (req, res, next) => {
+    const {username, password} = req.body;
     
+    if (!username || !password) {
+        return next (new AppError('username or Password not provided', 400));
+    }
+
+    const user = await User.findOne({username}).select('+password');
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return next(new AppError('Wrong username or password given.'));
+    }
+    return sendToken(user, res);
 });
 
 exports.register = catchAsync(async (req, res, next) => {

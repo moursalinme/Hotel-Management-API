@@ -5,7 +5,7 @@ const {login, register, getAllUsers, getUserById, updateUser, deleteUser} = requ
 // router.post('/register', userController.register);
 
 router.post('/register', register);
-// router.post('/login', userController.login);
+router.post('/login', login);
 // router.get('/', userController.getAllUsers); // For admin to get all users
 // router.get('/:userId', userController.getUserById); // For admin to get a specific user
 // router.put('/:userId', userController.updateUser); // For admin to update a user
