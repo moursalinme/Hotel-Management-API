@@ -3,9 +3,9 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError.js');
 const globalErrorController = require('./controllers/errorController.js');
 
+// for swagger
 const swaggerjsdoc = require('swagger-jsdoc');
 const swaggerui = require('swagger-ui-express');
-// const { version } = require('mongoose');
 
 
 const swaggerOptions = {
@@ -14,7 +14,7 @@ const swaggerOptions = {
         info: {
             version: '1.0.0', 
             title: 'Swagger Setup', 
-            description: 'Swagger Documentation of Hotel management System API.', 
+            description: 'Swagger Documentation of Hotel Management System API.', 
             contact: {
                 name: 'Moursalin', 
 
