@@ -40,9 +40,11 @@ app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocs));
 // Import and add the routes
 const UserRouter = require('./routes/userRoute');
 const RoomRouter = require('./routes/roomRoute');
+// const AdminRouter = require('./routes/adminRoute.js')
 
 app.use('/api/users', UserRouter);
 app.use('/api/rooms', RoomRouter);
+// app.use('/api/admin')
 
 app.all('*', (req, res, next) => {
     next(new AppError(`The provided URL Not Found! ${req.originalUrl}`, 404));
