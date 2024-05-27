@@ -41,3 +41,32 @@ exports.addNewRoom = catchAsync( async(req, res, next) => {
         createdRoom,
     })
 });
+
+
+exports.updateRoom = catchAsync(async(req, res, next) => {
+    const room = await Room.findById(req.params._id);
+    if (!room) {
+        return res.status(404).json({ message: 'Room not found' });
+    }
+    
+    const allowed = ['roomNumber', 'type', 'description', 'stars', 'price', 'isAvailable'];
+
+    const newRoom = {};
+
+    Object.keys(req.body).forEach(key => {
+        if (allowed.includes(key)) {
+            newRoom[key] = req.body[key];
+        }
+    });
+
+    const updatedRoom = await Room.findByIdAndUpdate(req.params._id, newRoom, {
+        new: true,
+        runValidators: true,
+    });
+
+    res.status(201).json({
+        status:"success",
+        updatedRoom,
+    })
+
+});
