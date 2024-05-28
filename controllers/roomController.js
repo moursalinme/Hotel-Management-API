@@ -100,3 +100,15 @@ exports.checkRoom = catchAsync(async(req, res, next) => {
     req.body.price = room.price;
     next();
 });
+
+
+exports.filterByStars = catchAsync(async(req, res, next) => {
+    const { stars } =  req.body;
+
+    const rooms = await Room.find({stars});
+    res.status(200).json({
+        status:"success",
+        totalrooms: rooms.length,
+        rooms,
+    });
+});
