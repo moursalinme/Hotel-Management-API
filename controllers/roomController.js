@@ -45,8 +45,9 @@ exports.addNewRoom = catchAsync( async(req, res, next) => {
 
 exports.updateRoom = catchAsync(async(req, res, next) => {
     const room = await Room.findById(req.params._id);
+    
     if (!room) {
-        return res.status(404).json({ message: 'Room not found' });
+        return (res.status(404).json({ message: 'Room not found' }));
     }
     
     const allowed = ['roomNumber', 'type', 'description', 'stars', 'price', 'isAvailable'];
@@ -69,4 +70,33 @@ exports.updateRoom = catchAsync(async(req, res, next) => {
         updatedRoom,
     })
 
+});
+
+exports.checkRoom = catchAsync(async(req, res, next) => {
+
+    const { roomNumber } = req.body;
+    if (!roomNumber) {
+        return (res.status(404).json({
+            status:"failed.",
+            msg: "room no not provided.",
+        }));
+    }
+    const room = await Room.findOne({ roomNumber });
+
+    if (!room) {
+        return (res.status(404).json({
+            status:"failed.",
+            msg: "room no invalid. Room no does not exists.",
+        }));
+    }
+
+    if (!room.isAvailable) {
+        return (res.status(400).json({
+            status:"failed.",
+            msg: "room is not available.",
+        }));
+    }
+    req.body.roomId = room._id;
+    req.body.price = room.price;
+    next();
 });

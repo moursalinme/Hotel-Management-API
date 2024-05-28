@@ -20,9 +20,8 @@ const guestSchema = new mongoose.Schema({
         validate: [validator.isNumeric, 'GuestPhone number is not valid. Please check if you have entered chars insted of numbers.'],
         select: false, 
     },
-    address: {
-        type: String, 
-        required: true,
-        minlength: [3, 'Guest name must have at least 3 characters'],
-    }
 });
+
+const Guest = mongoose.model('guest', guestSchema);
+
+module.exports = Guest;

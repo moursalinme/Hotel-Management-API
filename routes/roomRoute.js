@@ -9,8 +9,7 @@ router.get('/avRooms', getAvailableRooms);
 router.get('/addDummy', addDummyRoomData);
 
 router.post('/', addNewRoom) ;
-
-router.patch('/:_id', updateRoom);
+router.patch('/', updateRoom);
 // router.get('/:roomNo', getRoomById);
 
 
