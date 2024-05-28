@@ -41,10 +41,12 @@ app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerDocs));
 const UserRouter = require('./routes/userRoute');
 const RoomRouter = require('./routes/roomRoute');
 const reservationRouter = require('./routes/reservationRoute.js');
+const guestRouter = require('./routes/guestRoute');
 // const AdminRouter = require('./routes/adminRoute.js')
 
 app.use('/api/users', UserRouter);
 app.use('/api/rooms', RoomRouter);
+app.use('/api/guests', guestRouter);
 app.use('/api/book', reservationRouter);
 
 
