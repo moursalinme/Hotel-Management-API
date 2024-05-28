@@ -27,30 +27,36 @@ The Hotel Management System API is a RESTful service built with Node.js, Express
 
 ```bash
 git clone https://github.com/moursalinme/Hotel-Management-API.git
-cd hotel-management-system
+cd Hotel-Management-API
 ```
 
 2. **Install Dependencies:**
+
 ```bash
 npm install
 ```
 
 3. **Environment Variables:**
-Create a .env file in the root directory and add the following:
+   Create a .env file in the root directory and add the following:
+
 ```
 DBUrl=mongodb://localhost:127.0.0.1/Your-DB-name
-NODE_ENV=development    
+NODE_ENV=development
 JWT_EXP_TIME=30d
 JWT_SECRET_KEY=Your-SECRET-PASSWORD
 COOKIE_EXP_TIME=30
 PASS_SALT_LEN=10
 ```
+
 4. **Run the Application:**
+
 ```bash
 npm run start
 ```
+
 5. **To test the API. Go visit the API docs:**
-To visit the api docs go to this route.
+   To visit the api docs go to this route.
+
 ```bash
 /api-docs
 ```
