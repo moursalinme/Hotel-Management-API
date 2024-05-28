@@ -2,6 +2,17 @@ const Room = require('../models/RoomModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+exports.getAllRooms = catchAsync( async (req, res, next) => {
+
+    const rooms = await Room.find();
+
+    res.status(200).json({
+        status: "success",
+        totalRooms: rooms.length,
+        rooms,
+    });
+});
+
 exports.getAvailableRooms = catchAsync( async (req, res, next) => {
 
     const rooms = await Room.find({ isAvailable: true });

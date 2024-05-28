@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAsync");
 const Guest = require('../models/guestModel');
 
 
+
 exports.checkGuest = catchAsync(async(req, res, next) => {
 
     const { email } = req.body;
@@ -41,3 +42,14 @@ exports.checkGuest = catchAsync(async(req, res, next) => {
     req.body.guestId = exists._id;
     next();
 });
+
+
+exports.getAllGuest = catchAsync(async(req, res, next) => {
+    const guests = await Guest.find();
+
+    res.status(200).json({
+        status: "success",
+        guests,
+    });
+});
+
