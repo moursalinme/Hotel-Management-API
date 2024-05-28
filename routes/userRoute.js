@@ -7,9 +7,13 @@ const {login, register, protect, restrictTo, getAllUsers, getUserById, updateUse
 router.post('/register', register);
 router.post('/login', login);
 
-// router.use(protect, restrictTo('admin'));
+router.use(protect);
+// loggedin users - admin & recept both can access.
 router.get('/',  getAllUsers); 
 router.get('/:userId', getUserById);
+
+router.use(restrictTo('admin'));
+//Only admin can access
 router.delete('/:userId', deleteUser); 
 
 module.exports = router;
